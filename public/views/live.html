@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>接收页面</title>
+     <style>
+        *, *:before, *:after {
+            box-sizing: border-box;
+        }
+        body, html {
+            height: 100%;
+            overflow: hidden;
+        }
+        body, ul {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            color: #4d4d4d;
+            font: 14px/1.4em 'Helvetica Neue', Helvetica, 'Microsoft Yahei', Arial, sans-serif;
+            background: #f5f5f5 url('/public/vue/images/bg.jpg') no-repeat center;
+            background-size: cover;
+            font-smoothing: antialiased;
+        }
+        ul {
+            list-style: none;
+        }
+        #chat {
+            margin: 20px auto;
+            width: 800px;
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+    <audio id="audio" src="">
+    </audio>
+    <div id="chat"></div>
+     <script src="/public/vue/vue.js"></script>
+     <script src="/public/vue/main.js"></script>
+     <script src="/public/js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        var zqfdata;
+        var receiver_socket = new WebSocket("ws://"+document.domain+":8080/chat");
+        //ssl配置
+        //var receiver_socket = new WebSocket("wss://"+document.domain+":9503");
+        var image = document.getElementById('receiver');
+        var audio = document.querySelector('audio');
+        receiver_socket.onmessage = function(data)
+        {
+            zqfdata= jQuery.parseJSON(data.data);
+            if(zqfdata.Mtype=='video'){
+                image.src=zqfdata.Data;
+            }else if(zqfdata.Mtype=='mess'){
+                //$('#chatLog').append('<br/>'+zqfdata.data);
+                $('#zystmp').text(zqfdata.Data);
+                $('#zystmp').trigger('click');
+            }else if(zqfdata.Mtype=='mic'){
+               // var blob=dataURLtoBlob(zqfdata.data);
+                //console.log(zqfdata.data);
+                //console.log(window.URL.createObjectURL(blob));
+                //$('#audio').attr('src',zqfdata.data);
+                
+                audio.src =zqfdata.Data;
+                if(audio.paused){ 
+                    audio.play(); 
+                } 
+                /*g_audio.elems["id"] = '';
+                g_audio.push({
+                song_id: '',
+                song_fileUrl: window.URL.createObjectURL(zqfdata.data)
+                //audio.src = window.URL.createObjectURL(zqfdata.data);
+            });  */
+        }
+    }
+  receiver_socket.onopen = function (event) {
+    receiver_socket.send(JSON.stringify({Data:"亲！我连上啦！",Mtype:"mess",Img:''})); 
+  };
+   receiver_socket.onclose = function(event) { 
+    console.log('Client notified socket has closed',event); 
+  }; 
+  function senddata(data){
+        receiver_socket.send(JSON.stringify({Data:data,Mtype:"mess",Img:''})); 
+    }
+function dataURLtoBlob(dataurl) {
+        var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new Blob([u8arr], { type: mime });
+    }
+    </script>
+<!--<button  onclick="receiver_socket.send(JSON.stringify({data:document.getElementById('content').value,type:'mess'}));">发送</button>
+<button  onclick="receiver_socket.send(JSON.stringify({data:'smes_closed',type:'mess'}));">关闭</button>-->
+</body>
+</html>
