@@ -1,7 +1,6 @@
 package main
 
 import (
-	//"bufio"
 	//"./lib/client"
 	"./lib/websocket"
 	"crypto/md5"
