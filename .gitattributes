@@ -15,6 +15,6 @@
 *.PDF	 diff=astextplain
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
-*.js linguist-language=Scala
-*.css linguist-language=Scala
-*.html linguist-language=Scala
+*.js linguist-language=go
+*.css linguist-language=go
+*.html linguist-language=go
