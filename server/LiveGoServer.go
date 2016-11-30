@@ -79,7 +79,7 @@ func pwint(ws *websocket.Conn) {
 		var reply string
 
 		if err = websocket.Message.Receive(ws, &reply); err != nil {
-			fmt.Println("Can't receive")
+			//fmt.Println("Can't receive")
 			break
 		}
 		ok := getclient(ws)
