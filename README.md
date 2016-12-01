@@ -1,8 +1,8 @@
 # livego
 go 实现直播服务
 ### install
-    chmod 755 server.sh
-    ./server.sh &
+    chmod 755 server.sh<br/>
+    ./server.sh &<br/>
     (有些情况需要用vim 打开 set ff=unix 然后:wq)
 ### use
     采用vue+webpack实现ui
