@@ -84,7 +84,7 @@ func pwint(ws *websocket.Conn) {
 		var err error
 		var reply string
 		if err = websocket.Message.Receive(ws, &reply); err != nil {
-			logger.Fatal("LiveGoServer:", err)
+			logger.Println("LiveGoServer:", err)
 			break
 		}
 		for k, v := range member {
@@ -98,7 +98,7 @@ func pwint(ws *websocket.Conn) {
 				msg, _ := json.Marshal(mymes)
 				if err = websocket.Message.Send(v.conn, string(msg)); err != nil {
 					delete(member, k)
-					logger.Fatal("LiveGoServer:", err)
+					logger.Println("LiveGoServer:", err)
 					break
 				}
 			}
