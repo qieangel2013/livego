@@ -1,9 +1,11 @@
 # livego
 go 实现直播服务
 ### install
-    go build ./server/LiveGoServer.go
-    ./LiveGoServer
+    chmod 655 server.sh(有些情况需要用vim 打开 set ff=unix 然后:wq)
+     ./server.sh
 ### use
     采用vue+webpack实现ui
-    http://localhost:8080/live
-    http://localhost:8080/camera
+    所有在config里
+    日志在logs里
+    http://localhost:8080/live
+    http://localhost:8080/camera
