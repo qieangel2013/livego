@@ -73,6 +73,9 @@ func (m *Client) addclient(ws *websocket.Conn) *Client {
 var i int = 0
 
 func pwint(ws *websocket.Conn) {
+	defer func() {
+		ws.Close()
+	}()
 	uid := guid()
 	i++
 	//logger.Println(i)
@@ -129,7 +132,9 @@ var logger = log.New(logfile, "\r\n", log.Ldate|log.Ltime|log.Llongfile)
 
 func main() {
 	//fmt.Printf("LiveGoServer is ready...\n")
-	http.Handle("/chat", websocket.Handler(pwint))
+	go func() {
+		http.Handle("/chat", websocket.Handler(pwint))
+	}()
 	http.Handle("/", http.FileServer(http.Dir(".")))
 	http.HandleFunc("/live", live)
 	http.HandleFunc("/camera", camera)
