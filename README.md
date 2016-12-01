@@ -2,8 +2,8 @@
 go 实现直播服务
 ### install
     chmod 655 server.sh
-    (有些情况需要用vim 打开 set ff=unix 然后:wq)
     ./server.sh
+    (有些情况需要用vim 打开 set ff=unix 然后:wq)
 ### use
     采用vue+webpack实现ui
     所有在config里
