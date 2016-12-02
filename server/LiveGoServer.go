@@ -96,7 +96,7 @@ func pwint(ws *websocket.Conn) {
 				json.Unmarshal([]byte(reply), &mymes)
 				if mymes.Mtype == "mess" {
 					mymes.Data = fmt.Sprintf("%s%s", member[getclient(ws)].userinfo.name, mymes.Data)
-					mymes.Img = v.userinfo.img
+					mymes.Img = member[getclient(ws)].userinfo.img
 				}
 				msg, _ := json.Marshal(mymes)
 				if err = websocket.Message.Send(v.conn, string(msg)); err != nil {
@@ -104,6 +104,20 @@ func pwint(ws *websocket.Conn) {
 					logger.Println("LiveGoServer:", err)
 					break
 				}
+			} else {
+				var mymesss message
+				json.Unmarshal([]byte(reply), &mymesss)
+				if mymesss.Mtype == "mess" {
+					mymesss.Mtype = "self"
+					mymesss.Img = v.userinfo.img
+					msg, _ := json.Marshal(mymesss)
+					if err = websocket.Message.Send(ws, string(msg)); err != nil {
+						delete(member, k)
+						logger.Println("LiveGoServer:", err)
+						break
+					}
+				}
+
 			}
 
 		}

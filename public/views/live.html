@@ -49,11 +49,14 @@
         receiver_socket.onmessage = function(data)
         {
             zqfdata= jQuery.parseJSON(data.data);
+            console.log(zqfdata);
             if(zqfdata.Mtype=='video'){
                 image.src=zqfdata.Data;
             }else if(zqfdata.Mtype=='mess'){
                 //$('#chatLog').append('<br/>'+zqfdata.data);
+                console.log(zqfdata);
                 $('#zystmp').text(zqfdata.Data);
+                $('#livegotmp').attr('src',zqfdata.Img);
                 $('#zystmp').trigger('click');
             }else if(zqfdata.Mtype=='mic'){
                // var blob=dataURLtoBlob(zqfdata.data);
@@ -71,6 +74,9 @@
                 song_fileUrl: window.URL.createObjectURL(zqfdata.data)
                 //audio.src = window.URL.createObjectURL(zqfdata.data);
             });  */
+        }else if(zqfdata.Mtype=='self'){
+            $('#livegotmpself').attr('src',zqfdata.Img);
+            $('#livegoself').attr('src',zqfdata.Img);
         }
     }
   receiver_socket.onopen = function (event) {

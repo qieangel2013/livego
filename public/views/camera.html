@@ -307,7 +307,10 @@
             if(zqfdata.Mtype=='mess'){
                 $('#zystmp').text(zqfdata.Data);
                 $('#zystmp').trigger('click');
-            }
+            }else if(zqfdata.Mtype=='self'){
+            $('#livegotmpself').attr('src',zqfdata.Img);
+            $('#livegoself').attr('src',zqfdata.Img);
+        }
     }
     function blobToDataURL(blob, callback) {
         var a = new FileReader();
