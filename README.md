@@ -8,7 +8,7 @@ go 实现直播服务
     采用vue+webpack实现ui
     所有在config里
     日志在logs里
-    http://localhost:8080/live(视频直播)
+    http://localhost:8080/live(视频直播)<br/>
     http://localhost:8080/camera(录视频)
 ###使用效果
 ![](https://github.com/qieangel2013/livego/blob/master/public/images/live.png)
