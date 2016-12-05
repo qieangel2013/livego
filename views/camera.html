@@ -37,7 +37,7 @@
     <div id="chat"></div>
      <script src="/public/vue/vue.js"></script>
      <script src="/public/vue/main.js"></script>
-     <script src="/public/js/jquery-1.8.2.min.js"></script>
+     <script src="/public/js/jquery.min.js"></script>
     <br>
     提示：最好用火狐测试，谷歌浏览器升级了安全策略，谷歌浏览器只能在https下才能利用html5打开摄像头。
 
@@ -92,7 +92,6 @@
             //压缩
             var compression = parseInt(this.inputSampleRate / this.outputSampleRate);
             var length = data.length / compression;
-            console.log(length);
             var result = new Float32Array(parseInt(length));
             var index = 0, j = 0;
             while (index < length) {
@@ -306,6 +305,7 @@
         zqfdata= jQuery.parseJSON(data.data);
             if(zqfdata.Mtype=='mess'){
                 $('#zystmp').text(zqfdata.Data);
+                $('#livegotmp').attr('src',zqfdata.Img);
                 $('#zystmp').trigger('click');
             }else if(zqfdata.Mtype=='self'){
             $('#livegotmpself').attr('src',zqfdata.Img);

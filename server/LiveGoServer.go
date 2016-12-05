@@ -18,8 +18,9 @@ import (
 )
 
 type userinfo struct {
-	name string
-	img  string
+	name   string
+	img    string
+	isself bool
 }
 type Client struct {
 	id   string
@@ -70,16 +71,20 @@ func (m *Client) addclient(ws *websocket.Conn) *Client {
 	return m
 }
 
-var i int = 0
+var username string
+var uzb string = ""
 
 func pwint(ws *websocket.Conn) {
 	defer func() {
 		ws.Close()
 	}()
 	uid := guid()
-	i++
 	//logger.Println(i)
-	user := userinfo{fmt.Sprintf("游客%d说：", i), fmt.Sprintf("/public/images/%s.jpg", getnun())}
+	if username == "" && uzb == "女主播" {
+		username = uzb
+	}
+	user := userinfo{fmt.Sprintf("%s：", username), fmt.Sprintf("/public/images/%s.jpg", getnun()), false}
+	username = ""
 	client := Client{uid, ws, user}
 	client.addclient(ws)
 	member[uid] = &client
@@ -105,36 +110,59 @@ func pwint(ws *websocket.Conn) {
 					break
 				}
 			} else {
-				var mymesss message
-				json.Unmarshal([]byte(reply), &mymesss)
-				if mymesss.Mtype == "mess" {
+				if !v.userinfo.isself {
+					var mymesss message
+					json.Unmarshal([]byte(reply), &mymesss)
+					//if mymesss.Mtype == "mess" {
 					mymesss.Mtype = "self"
 					mymesss.Img = v.userinfo.img
 					msg, _ := json.Marshal(mymesss)
+					member[k].userinfo.isself = true
 					if err = websocket.Message.Send(ws, string(msg)); err != nil {
 						delete(member, k)
 						logger.Println("LiveGoServer:", err)
 						break
 					}
+					//}
 				}
-
 			}
 
 		}
 	}
 }
 
-func camera(w http.ResponseWriter, r *http.Request) {
+func index(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
 	if r.Method == "GET" {
-		t, _ := template.ParseFiles("./public/views/camera.html")
+		t, _ := template.ParseFiles("./views/index.html")
+		t.Execute(w, nil)
+	} else {
+		_, ok := r.Form["name"]
+		if ok {
+			username = r.FormValue("name")
+			http.Redirect(w, r, "/live", 301)
+		} else {
+			http.Redirect(w, r, "/index", 301)
+		}
+
+	}
+}
+
+func camera(w http.ResponseWriter, r *http.Request) {
+	uzb = "女主播"
+	if r.Method == "GET" {
+		t, _ := template.ParseFiles("./views/camera.html")
 		t.Execute(w, nil)
 	} else {
 
 	}
 }
 func live(w http.ResponseWriter, r *http.Request) {
+	if username == "" {
+		http.Redirect(w, r, "/index", 301)
+	}
 	if r.Method == "GET" {
-		t, _ := template.ParseFiles("./public/views/live.html")
+		t, _ := template.ParseFiles("./views/live.html")
 		t.Execute(w, nil)
 	} else {
 
@@ -149,9 +177,11 @@ func main() {
 	go func() {
 		http.Handle("/chat", websocket.Handler(pwint))
 	}()
-	http.Handle("/", http.FileServer(http.Dir(".")))
+	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("./public"))))
 	http.HandleFunc("/live", live)
 	http.HandleFunc("/camera", camera)
+	http.Handle("/", http.RedirectHandler("/index", 301))
+	http.HandleFunc("/index", index)
 	var config = config.ServerHost + ":" + config.ServerPort
 	if err := http.ListenAndServe(config, nil); err != nil {
 		logger.Fatal("LiveGoServer:", err)
