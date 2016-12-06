@@ -33,7 +33,7 @@
     </style>
 </head>
 <body>
-    <audio id="audio" src="">
+    <audio id="audio" autoplay="autoplay">
     </audio>
     <div id="chat"></div>
      <script src="/public/vue/vue.js"></script>
@@ -53,7 +53,6 @@
                 image.src=zqfdata.Data;
             }else if(zqfdata.Mtype=='mess'){
                 //$('#chatLog').append('<br/>'+zqfdata.data);
-                console.log(zqfdata);
                 $('#zystmp').text(zqfdata.Data);
                 $('#livegotmp').attr('src',zqfdata.Img);
                 $('#zystmp').trigger('click');
@@ -62,11 +61,12 @@
                 //console.log(zqfdata.data);
                 //console.log(window.URL.createObjectURL(blob));
                 //$('#audio').attr('src',zqfdata.data);
-                
-                audio.src =zqfdata.Data;
-                if(audio.paused){ 
+                $('#audio').append('<source src="'+zqfdata.Data+'"/>')
+                //audio.src =zqfdata.Data;
+                /*if(audio.paused){ 
                     audio.play(); 
-                } 
+                    console.log(audio.currentSrc);
+                } */
                 /*g_audio.elems["id"] = '';
                 g_audio.push({
                 song_id: '',
@@ -95,7 +95,9 @@ function dataURLtoBlob(dataurl) {
         }
         return new Blob([u8arr], { type: mime });
     }
-    </script>
+var is_playFinish = setInterval(function(){
+if(audio.ended){$("#audio source:first").remove();$('#audio').attr('src', $("#audio source:first").attr('src'));audio.play();}}, 10);
+ </script>
 <!--<button  onclick="receiver_socket.send(JSON.stringify({data:document.getElementById('content').value,type:'mess'}));">发送</button>
 <button  onclick="receiver_socket.send(JSON.stringify({data:'smes_closed',type:'mess'}));">关闭</button>-->
 </body>

@@ -184,7 +184,7 @@ func main() {
 	http.HandleFunc("/index", index)
 	var config = config.ServerHost + ":" + config.ServerPort
 	if err := http.ListenAndServe(config, nil); err != nil {
-		logger.Fatal("LiveGoServer:", err)
+		logger.Println("LiveGoServer:", err)
 		logfile.Close()
 	}
 
