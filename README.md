@@ -11,7 +11,7 @@ go 实现直播服务
     所有在config里
     日志在logs里
     http://localhost:8080/  (视频直播)<br/>
-    http://localhost:8080/camera (录视频)
+    http://localhost:8080/camera (录视频)(由于chrome的安全限制，建议在firefox下打开录视频页面)
 ###使用效果
 ![](https://github.com/qieangel2013/livego/blob/master/public/images/live.png)
 ###交流使用
