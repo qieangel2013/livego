@@ -46,6 +46,32 @@
         //var receiver_socket = new WebSocket("wss://"+document.domain+":9503");
         var image = document.getElementById('receiver');
         var audio = document.querySelector('audio');
+        window.initPlayer = function(obj){        
+        obj.playlist = []; //播放列表        
+        obj.position = 0; //当前播放位置
+        //播放音乐(循环播放)
+        obj.start = function(){
+            if(jQuery.isArray(obj.playlist) && obj.playlist.length>=1){
+                $(obj).attr("src", obj.playlist[obj.position % obj.playlist.length]);    
+                obj.play();
+            } 
+        };
+        //播放一个列表
+        obj.playList = function(arr){
+            if(jQuery.isArray(arr) && arr.length>=1){
+                obj.playlist = arr;
+                obj.position = 0;
+                obj.start();  
+            }
+        };
+        //播放下一首
+        $(obj).on("ended",function(e){
+             obj.playlist.shift();
+            //obj.position++;
+            obj.start();           
+        });
+    };
+        initPlayer(audio);
         receiver_socket.onmessage = function(data)
         {
             zqfdata= jQuery.parseJSON(data.data);
@@ -61,7 +87,8 @@
                 //console.log(zqfdata.data);
                 //console.log(window.URL.createObjectURL(blob));
                 //$('#audio').attr('src',zqfdata.data);
-                $('#audio').append('<source src="'+zqfdata.Data+'"/>')
+                //$('#audio').append('<source src="'+zqfdata.Data+'"/>')
+                audio.playlist.push(zqfdata.Data);
                 //audio.src =zqfdata.Data;
                 /*if(audio.paused){ 
                     audio.play(); 
@@ -87,16 +114,7 @@
   function senddata(data){
         receiver_socket.send(JSON.stringify({Data:data,Mtype:"mess",Img:''})); 
     }
-function dataURLtoBlob(dataurl) {
-        var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-            bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-        while (n--) {
-            u8arr[n] = bstr.charCodeAt(n);
-        }
-        return new Blob([u8arr], { type: mime });
-    }
-var is_playFinish = setInterval(function(){
-if(audio.ended){$("#audio source:first").remove();$('#audio').attr('src', $("#audio source:first").attr('src'));audio.play();}}, 10);
+    audio.start();
  </script>
 <!--<button  onclick="receiver_socket.send(JSON.stringify({data:document.getElementById('content').value,type:'mess'}));">发送</button>
 <button  onclick="receiver_socket.send(JSON.stringify({data:'smes_closed',type:'mess'}));">关闭</button>-->
