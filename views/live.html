@@ -90,10 +90,9 @@
                 //$('#audio').append('<source src="'+zqfdata.Data+'"/>')
                 audio.playlist.push(zqfdata.Data);
                 //audio.src =zqfdata.Data;
-                /*if(audio.paused){ 
-                    audio.play(); 
-                    console.log(audio.currentSrc);
-                } */
+                if(audio.paused){ 
+                    audio.start();
+                } 
                 /*g_audio.elems["id"] = '';
                 g_audio.push({
                 song_id: '',
@@ -114,7 +113,7 @@
   function senddata(data){
         receiver_socket.send(JSON.stringify({Data:data,Mtype:"mess",Img:''})); 
     }
-    audio.start();
+    //audio.start();
  </script>
 <!--<button  onclick="receiver_socket.send(JSON.stringify({data:document.getElementById('content').value,type:'mess'}));">发送</button>
 <button  onclick="receiver_socket.send(JSON.stringify({data:'smes_closed',type:'mess'}));">关闭</button>-->
