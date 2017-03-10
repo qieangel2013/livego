@@ -14,6 +14,13 @@ go 实现直播服务
     http://localhost:8080/camera (录视频)(由于chrome的安全限制，建议在firefox下打开录视频页面)
 ###使用效果
 ![](https://github.com/qieangel2013/livego/blob/master/public/images/live.png)
+###livegoim
+        livegoim是基于layui和layim开发的，所以未开源
+        有需要请私信联系我
+###pc使用效果
+![](https://github.com/qieangel2013/livego/blob/master/public/images/jt.png)
+###mobile使用效果
+![](https://github.com/qieangel2013/livego/blob/master/public/images/jtmobile.png)
 ###交流使用
     交流群：337937322
 ###如果你对我的辛勤劳动给予肯定，请给我捐赠，你的捐赠是我最大的动力
