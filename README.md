@@ -1,10 +1,10 @@
 # livego
 go 实现直播服务
-###服务器部署
+### 服务器部署
     chmod 755 server.sh<br/>
     ./server.sh &（依赖go环境，有些情况需要用vim 打开 set ff=unix 然后:wq） <br/>
     或者直接执行 ./LiveGoServer (不依赖go环境)
-###本地部署
+### 本地部署
     直接执行 LiveGoServer.exe
 ### use
     采用vue+webpack实现ui
@@ -12,17 +12,17 @@ go 实现直播服务
     日志在logs里
     http://localhost:8080/  (视频直播)<br/>
     http://localhost:8080/camera (录视频)(由于chrome的安全限制，建议在firefox下打开录视频页面)
-###使用效果
+### 使用效果
 ![](https://github.com/qieangel2013/livego/blob/master/public/images/live.png)
-###livegoim
+### livegoim
         livegoim是基于layui和layim开发的，所以未开源
         有需要请私信联系我
-###pc使用效果
+### pc使用效果
 ![](https://github.com/qieangel2013/livego/blob/master/public/images/jt.png)
-###mobile使用效果
+### mobile使用效果
 ![](https://github.com/qieangel2013/livego/blob/master/public/images/jtmobile.png)
-###交流使用
+### 交流使用
     交流群：337937322
-###如果你对我的辛勤劳动给予肯定，请给我捐赠，你的捐赠是我最大的动力
+### 如果你对我的辛勤劳动给予肯定，请给我捐赠，你的捐赠是我最大的动力
 ![](https://github.com/qieangel2013/livego/blob/master/public/images/pay.png)
 [项目捐赠列表](https://github.com/qieangel2013/zys/wiki/%E9%A1%B9%E7%9B%AE%E6%8D%90%E8%B5%A0)
