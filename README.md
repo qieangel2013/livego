@@ -17,6 +17,7 @@ go 实现直播服务
 ### livegoim
         livegoim是基于layui和layim开发的，所以未开源
         有需要请私信联系我
+        付费交流群：229792939
 ### pc使用效果
 ![](https://github.com/qieangel2013/livego/blob/master/public/images/jt.png)
 ### mobile使用效果
