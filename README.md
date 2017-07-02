@@ -10,15 +10,15 @@ go 实现直播服务
     采用vue+webpack实现ui
     所有在config里
     日志在logs里
-    http://localhost:8080/  (视频直播)<br/>
+    http://localhost:8080/  (视频直播)<br/>
     http://localhost:8080/camera (录视频)(由于chrome的安全限制，建议在firefox下打开录视频页面)
 ### 使用效果
 ![](https://github.com/qieangel2013/livego/blob/master/public/images/live.png)
 ### livegoim
-     livegoim是基于layui和layim开发的
-     有需要请私信联系我(904208360)
-     付费交流群：229792939
-     http://www.jduxiu.com:88/live/index/index (演示地址)
+    livegoim是基于layui和layim开发的
+    有需要请私信联系我(904208360)
+    付费交流群：229792939
+    http://www.jduxiu.com:88/live/index/index (演示地址)
 ### pc使用效果
 ![](https://github.com/qieangel2013/livego/blob/master/public/images/jt.png)
 ### mobile使用效果
