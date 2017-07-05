@@ -16,6 +16,7 @@ go 实现直播服务
 ![](https://github.com/qieangel2013/livego/blob/master/public/images/live.png)
 ### livegoim
     livegoim是基于layui和layim开发的
+    由于未开源，需要授权可以获取源代码
     有需要请私信联系我(904208360)
     付费交流群：229792939
 http://www.jduxiu.com:88/live/index/index (演示地址)
