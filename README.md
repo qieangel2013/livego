@@ -21,7 +21,9 @@ go 实现直播服务
     付费交流群：229792939
 http://www.weivq.com:88/ (演示地址)<br/>
 http://www.weivq.com:88/public/uploads/LiveIm.apk (安卓演示)
-### pc使用效果
+http://www.weivq.com:88/public/uploads/LiveImInstall.exe (pc端演示)
+![](https://github.com/qieangel2013/yaf/blob/master/public/images/windowspc.png)
+### pc浏览器使用效果
 ![](https://github.com/qieangel2013/livego/blob/master/public/images/jt.png)
 ### mobile使用效果
 ![](https://github.com/qieangel2013/livego/blob/master/public/images/jtmobile.png)
